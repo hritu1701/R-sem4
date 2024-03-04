@@ -97,7 +97,97 @@ datasets::npk
 which(npk$yield==62)
 which(npk$yield==48.8) & (npk$N==1)
 which(npk$yield==max(npk$yield))
-                                                                                                
+
+
+#SQLDF
+data()
+data(iris)
+sqldf("select * from iris limit 5")
+View(iris)
+sqldf("select count(*) from iris")
+sqldf("select species, count(*) from iris group by species")
+
+
+sqldf("select * from iris where [Sepal.Length]>5")
+sqldf("select max([Petal.Length]) from iris")
+data()
+data("UCBAdmissions")
+View(UCBAdmissions)
+str(UCBAdmission)
+
+ucb<-as.data.frame((UCBAdmissions))
+str(ucb)
+sqldf("select  * from ucb")
+sqldf("select  * from ucb where Gender = 'female'")
+sqldf("select  * from ucb where Admit = 'Admitted'")
+
+sqldf("select * from ucb where Admit = 'Admitted' order by Freq DESC")
+sqldf("select distinct Dept from ucb")
+
+sqldf("select sum([Freq]) from ucb where Admit = 'Admitted'")
+
+sqldlf("select sum(Freq) from ucb where Admit = 'Rejected'")
+
+sqldf("select sum(Freq) as total_dudes from ucb where Admit = 'Admitted' AND Gender = 'male'")
+
+sqldf("select sum(Freq) as total_ladies from ucb  where Admit = 'Rejected' AND Gender = 'Female'")
+
+sqldf("select sum(Freq) from ucb where Admit = 'Admitted' AND Dept = 'E'")
+sqldf("select Dept, sum(Freq) from ucb where Admit = 'Admitted' group by Dept")
+sqldf("select Dept, sum(Freq) from ucb where Admit = 'Rejected' group by Dept")
+
+#create another dataable, named majors
+
+majors<-data.frame(major = c("math","biology","enginerring","computer science","history","architecture"),Dept=c(Letters[1:5],"others"),faculty=round(runif(6,min=10,max=30)))
+majors
+sqldf("select * from majors")
+#how many majors are there
+sqldf("select count(major) from majors")
+#minimum number of students rejected 
+sqldf("select min(Freq from ucb where Admit = 'Rejected' ")
+#wild card match Queries
+sqldf("select * from ucb where Freq between 20 AND 100")
+sqldf("select * from ucb where Gender Like 'Fe%'")
+sqldf("select * from ucb where Gender Like '%male%'")
+sqldf("select * from ucb where Gender Like 'Ma%'")
+sqldf("select * from ucb where Gender = 'Female' AND Freq >= 100")
+sqldf("select * from ucb where Gender Like '_ale'")
+sqldf("select * from ucb where Gender Not Like 'M_l_'")
+
+
+#manipulation & Nested Queries 
+#which department is having maximum number of admitted students.
+
+sqldf("select Dept from ucb where Freq = (select max(Freq) from ucb where Admit = 'Admitted')")
+
+#which department had the most admitted Female student 
+
+sqldf("select Dept from ucb where Freq = (select max(Freq) from ucb where Gender = 'Female' AND Admit = 'Admitted')")
+
+
+#Name of department , which is having most faculty members
+
+sqldf("select Dept from majors where Faculty = (select max(Faculty) from majors)")
+majors
+
+#Join Queries 
+#join the two tables together by the common key
+
+sqldf("select * from ucb inner join majors on ucb.Dept = majors.Dept")
+
+#join the table on the left with resultant null's on the right table
+sqldf("select * from ucb left join majors on ucb.Dept = majors.Dept")
+
+
+#join the table on the right with the left 
+sqldf("select * from ucb right join majors on ucb.Dept = majors.Dept")
 
 
 
+
+#Hands on practive (use sales dataset)
+
+#Write a command to mention the number of customers in each department.
+#Name of customer country, which is having the highest Sales amount.
+#Mention the name oof the iteam which is sold most.
+#List the channel type wise sales cost, which must be sorted in the descending order.
