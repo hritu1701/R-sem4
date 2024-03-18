@@ -184,8 +184,18 @@ sqldf("select * from ucb right join majors on ucb.Dept = majors.Dept")
 
 
 
-#Hands on practive (use sales dataset)
-#Write a command to mention the number of customers in each department.
-#Name of customer country, which is having the highest Sales amount.
-#Mention the name oof the iteam which is sold most.
-#List the channel type wise sales cost, which must be sorted in the descending order.
+#DPLYR
+
+print(getwd())
+setwd("C:/Users/hritu/Desktop/R sem4")
+print(getwd())
+data2 <-read.csv("SalesDatafor preprocessingmaneet kaur.csv")
+View(data2)
+
+data2<-read.csv(file.choose(),header=TRUE, stringsAsFactors = TRUE)
+str(data2)
+summary(data2)
+
+s1<-na.omit(data2)
+view(s1)
+summary(s1)
