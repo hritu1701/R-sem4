@@ -350,4 +350,4 @@ x$State <- c("NY" ,"FL");x
 x$State <- NULL
 x
 x <- x[-1,]
-
+x

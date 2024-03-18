@@ -136,7 +136,7 @@ sqldf("select sum(Freq) from ucb where Admit = 'Admitted' AND Dept = 'E'")
 sqldf("select Dept, sum(Freq) from ucb where Admit = 'Admitted' group by Dept")
 sqldf("select Dept, sum(Freq) from ucb where Admit = 'Rejected' group by Dept")
 
-#create another dataable, named majors
+#create another data table, named majors
 
 majors<-data.frame(major = c("math","biology","enginerring","computer science","history","architecture"),Dept=c(Letters[1:5],"others"),faculty=round(runif(6,min=10,max=30)))
 majors
@@ -170,7 +170,7 @@ sqldf("select Dept from ucb where Freq = (select max(Freq) from ucb where Gender
 sqldf("select Dept from majors where Faculty = (select max(Faculty) from majors)")
 majors
 
-#Join Queries 
+#Join Queries
 #join the two tables together by the common key
 
 sqldf("select * from ucb inner join majors on ucb.Dept = majors.Dept")
@@ -184,9 +184,7 @@ sqldf("select * from ucb right join majors on ucb.Dept = majors.Dept")
 
 
 
-
 #Hands on practive (use sales dataset)
-
 #Write a command to mention the number of customers in each department.
 #Name of customer country, which is having the highest Sales amount.
 #Mention the name oof the iteam which is sold most.
