@@ -192,10 +192,24 @@ print(getwd())
 data2 <-read.csv("SalesDatafor preprocessingmaneet kaur.csv")
 View(data2)
 
-data2<-read.csv(file.choose(),header=TRUE, stringsAsFactors = TRUE)
-str(data2)
-summary(data2)
+s0<-read.csv(file.choose(),header=TRUE, stringsAsFactors = TRUE)
+str(s0)
+summary(s0)
 
-s1<-na.omit(data2)
-view(s1)
+s1<-na.omit(s0)
+View(s1)
 summary(s1)
+
+#Replace the missing values with mean value in each variable.
+
+s0$Sales[is.na(s0$Sales)] <- mean(s0$Sales, na.rm = TRUE)
+s0$Profit[is.na(s0$Profit)] <- mean(s0$Profit, na.rm = TRUE)
+s0$Unit.Price[is.na(s0$Unit.Price)] <- mean(s0$Unit.Price, na.rm = TRUE)
+summary(s0)
+
+
+
+
+
+
+
